@@ -68,6 +68,70 @@
       position: relative;
     }
 
+    /* ── Scrollable news feed ── */
+    .news-scroll{
+      max-height: 420px;
+      overflow-y: auto;
+      display: grid;
+      gap: 12px;
+      padding-right: 6px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(123,0,0,0.25) transparent;
+    }
+    .news-scroll::-webkit-scrollbar{
+      width: 5px;
+    }
+    .news-scroll::-webkit-scrollbar-track{
+      background: transparent;
+    }
+    .news-scroll::-webkit-scrollbar-thumb{
+      background: rgba(123,0,0,0.25);
+      border-radius: 99px;
+    }
+
+    /* News item card */
+    .news-item{
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(250,250,252,0.9);
+    }
+    .news-item p{
+      margin: 0;
+      font-size: 14px;
+    }
+
+    /* News image placeholder */
+    .news-img{
+      margin-top: 12px;
+      width: 100%;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: rgba(123,0,0,0.04);
+    }
+    .news-img img{
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .news-img-placeholder{
+      width: 100%;
+      aspect-ratio: 16/7;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: rgba(123,0,0,0.40);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+    }
+    .news-img-placeholder svg{
+      opacity: 0.35;
+    }
+
     /* Main layout */
     .grid{
       display: grid;
@@ -406,25 +470,37 @@
           <div class="sections">
 
 
-            <section class="section" id="education">
-            <h2><span class="dot"></span> Recent News</h2>
+          
+            <section class="section" id="news">
+              <h2><span class="dot"></span> Recent News</h2>
 
-            <ul class="pub">
+              <div class="news-scroll" role="feed" aria-label="Recent news">
 
-                <li>
-                <p class="authors2"><b>April 2026</b> - Three of my papers got accepted to ACL 2026 Main Conference. ⭐⭐⭐</p>
-                </li>
+                <!-- ★ NEW item with image placeholder -->
+                <div class="news-item">
+                  <p><b>May 2026</b> — Happy to receive the Best Poster Award in the CS Symposium. 🏆</p>
+                  <div class="news-img">
+                    <img src="IMG_3303.jpg" alt="Happy to receive the Best Poster Award in the CS Symposium">
+                  </div>
+                </div>
+              
 
-                <li>
-                <p class="authors2"><b>March 2026</b> - Honored to receive the University Research Council (URC 2026) Award. 🏆</p>
-                </li>
+                <div class="news-item">
+                  <p><b>April 2026</b> — Three of my papers got accepted to ACL 2026 Main Conference. ⭐⭐⭐</p>
+                </div>
 
-                <li>
-                <p class="authors2"><b>February 2026</b> - Our paper got accepted to EACL 2026 Main Conference. ⭐</p>
-                </li>
+                <div class="news-item">
+                  <p><b>March 2026</b> — Honored to receive the University Research Council (URC 2026) Award. 🏆</p>
+                </div>
 
-            </ul>
+                <div class="news-item">
+                  <p><b>February 2026</b> — Our paper got accepted to EACL 2026 Main Conference. ⭐</p>
+                </div>
+
+              </div><!-- /.news-scroll -->
             </section>
+
+
 
             <section class="section" id="education">
             <h2><span class="dot"></span> Education</h2>
