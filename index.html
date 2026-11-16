@@ -4,784 +4,515 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Saptarshi Ghosh</title>
+  <meta name="description" content="Saptarshi Ghosh — PhD student in Natural Language Processing at the University of Cincinnati (CincyNLP).">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg: #fbfbfd;
-      --card: rgba(255,255,255,0.88);
-      --card-solid: #ffffff;
-      --text: #14141a;
-      --muted: #5c5f6a;
-      --line: rgba(20,20,26,0.10);
-      --accent: #7b0000; /* darkred-ish but richer */
-      --accent-2: #b00000;
-      --shadow: 0 18px 50px rgba(20,20,26,0.10);
-      --shadow-soft: 0 10px 30px rgba(20,20,26,0.08);
-      --radius: 18px;
-      --radius-lg: 26px;
+      --bg: #ffffff;
+      --card: #ffffff;
+      --text: #1d1d22;
+      --muted: #6b6e78;
+      --line: #ececf0;
+      --accent: #1f4e8c;
+      /* --accent: #1e3a5f; */
+      --accent-soft: rgba(31,78,140,0.08);
+      --shadow: 0 1px 2px rgba(20,20,26,0.04), 0 4px 16px rgba(20,20,26,0.04);
+      --radius: 16px;
       --max: 1080px;
     }
 
     * { box-sizing: border-box; }
-    html, body { height: 100%; }
     body{
       margin: 0;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      font-size: 15.5px;
+      line-height: 1.65;
       color: var(--text);
       background: var(--bg);
-      line-height: 1.6;
     }
 
-    /* Subtle gradient + noise-like texture (pure CSS) */
-    .page{
-      min-height: 100%;
-      background:
-        radial-gradient(1200px 600px at 10% 0%, rgba(123,0,0,0.10), transparent 60%),
-        radial-gradient(900px 500px at 90% 10%, rgba(176,0,0,0.07), transparent 55%),
-        linear-gradient(180deg, #ffffff 0%, var(--bg) 55%, #ffffff 100%);
-    }
+    a{ color: var(--accent); text-decoration: none; }
+    a:hover{ text-decoration: underline; text-underline-offset: 3px; }
 
-    /* Top hero band */
-    .hero{
-      position: relative;
-      padding: 54px 18px 34px;
-      overflow: hidden;
-    }
-    .hero::before{
-      content:"";
-      position:absolute; inset:-1px;
-      background:
-        radial-gradient(900px 300px at 40% 20%, rgba(123,0,0,0.16), transparent 62%),
-        radial-gradient(600px 280px at 80% 10%, rgba(176,0,0,0.10), transparent 60%),
-        linear-gradient(180deg, rgba(123,0,0,0.06), transparent 70%);
-      pointer-events:none;
-    }
-
-    .container{
+    /* ── Layout ── */
+    .grid{
       width: min(var(--max), 100%);
       margin: 0 auto;
-      position: relative;
-    }
-
-    /* ── Scrollable news feed ── */
-    .news-scroll{
-      max-height: 420px;
-      overflow-y: auto;
+      padding: 40px 20px 48px;
       display: grid;
-      gap: 12px;
-      padding-right: 6px;
-      scrollbar-width: thin;
-      scrollbar-color: rgba(123,0,0,0.25) transparent;
-    }
-    .news-scroll::-webkit-scrollbar{
-      width: 5px;
-    }
-    .news-scroll::-webkit-scrollbar-track{
-      background: transparent;
-    }
-    .news-scroll::-webkit-scrollbar-thumb{
-      background: rgba(123,0,0,0.25);
-      border-radius: 99px;
-    }
-
-    /* News item card */
-    .news-item{
-      padding: 14px;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: rgba(250,250,252,0.9);
-    }
-    .news-item p{
-      margin: 0;
-      font-size: 14px;
-    }
-
-    /* News image placeholder */
-    .news-img{
-      margin-top: 12px;
-      width: 100%;
-      border-radius: 10px;
-      overflow: hidden;
-      border: 1px solid var(--line);
-      background: rgba(123,0,0,0.04);
-    }
-    .news-img img{
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-    .news-img-placeholder{
-      width: 100%;
-      aspect-ratio: 16/7;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      color: rgba(123,0,0,0.40);
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.2px;
-    }
-    .news-img-placeholder svg{
-      opacity: 0.35;
-    }
-
-    /* Main layout */
-    .grid{
-      display: grid;
-      grid-template-columns: 360px 1fr;
-      gap: 18px;
+      grid-template-columns: 320px 1fr;
+      gap: 24px;
       align-items: start;
-      padding: 0 18px 56px;
     }
 
-    /* Card base */
     .card{
       background: var(--card);
       border: 1px solid var(--line);
-      border-radius: var(--radius-lg);
+      border-radius: var(--radius);
       box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
     }
 
-    /* Profile card */
+    /* ── Profile ── */
     .profile{
       padding: 22px;
       position: sticky;
-      top: 16px;
-    }
-
-    .avatar{
-      width: 100%;
-      border-radius: 22px;
-      overflow: hidden;
-      border: 1px solid var(--line);
-      background: #fff;
-      box-shadow: var(--shadow-soft);
+      top: 24px;
     }
     .avatar img{
       width: 100%;
       height: auto;
       display: block;
+      border-radius: 12px;
     }
-
     .name{
-      font-family: Fraunces, serif;
-      font-size: 34px;
-      line-height: 1.1;
-      letter-spacing: 0.2px;
-      margin: 16px 0 6px;
+      font-family: Fraunces, Georgia, serif;
+      font-weight: 600;
+      font-size: 30px;
+      line-height: 1.15;
+      margin: 18px 0 8px;
       color: var(--accent);
     }
-
     .meta{
       margin: 0;
       color: var(--muted);
-      font-weight: 500;
+      font-size: 14.5px;
+      line-height: 1.55;
     }
+    .meta strong{ color: var(--text); font-weight: 500; }
 
     .pillrow{
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 14px;
+      gap: 6px;
+      margin-top: 16px;
     }
     .pill{
-      font-size: 13px;
-      padding: 7px 10px;
+      font-size: 12.5px;
+      padding: 3px 10px;
       border-radius: 999px;
-      border: 1px solid rgba(123,0,0,0.22);
-      background: rgba(123,0,0,0.06);
-      color: var(--accent);
-      font-weight: 600;
-      letter-spacing: 0.1px;
+      background: #f3f3f6;
+      color: var(--muted);
+      font-weight: 500;
     }
 
     .contact{
-      margin-top: 14px;
-      padding-top: 14px;
+      margin-top: 18px;
+      padding-top: 16px;
       border-top: 1px solid var(--line);
       display: grid;
-      gap: 10px;
+      gap: 8px;
+      font-size: 14px;
     }
-    .contact a{
-      color: var(--text);
-      text-decoration: none;
-      font-weight: 600;
-    }
-    .contact a:hover{ color: var(--accent); }
     .contact .row{
       display: flex;
       gap: 10px;
       align-items: center;
-      color: var(--muted);
-      font-size: 14px;
     }
-    .icon{
-      width: 22px; height: 22px;
-      display: inline-grid;
-      place-items: center;
-      border-radius: 8px;
-      background: rgba(20,20,26,0.04);
-      border: 1px solid var(--line);
+    .contact svg{
+      width: 16px; height: 16px;
+      flex-shrink: 0;
+      stroke: var(--muted);
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
+    .contact a{ color: var(--text); }
+    .contact a:hover{ color: var(--accent); }
 
-    /* Main content column */
-    .content{
-      padding: 0;
-    }
+    /* ── Main column ── */
+    .content{ display: grid; gap: 20px; }
 
-    .intro{
-      padding: 22px 22px 18px;
-      border-radius: var(--radius-lg);
-    }
+    .intro{ padding: 22px 24px; }
+    .intro p{ margin: 0; }
 
-    .intro p{
-      margin: 0;
-      color: var(--text);
-      font-size: 15.5px;
-    }
-
-    a{
-      color: var(--accent);
-      text-decoration: none;
-      border-bottom: 1px solid rgba(123,0,0,0.25);
-    }
-    a:hover{
-      color: var(--accent-2);
-      border-bottom-color: rgba(176,0,0,0.35);
-    }
-
-    .sections{
-      margin-top: 14px;
-      display: grid;
-      gap: 14px;
-    }
-
-    .section{
-      padding: 18px 22px;
-      background: var(--card-solid);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-soft);
-    }
-
+    .section{ padding: 22px 24px; }
     .section h2{
-      margin: 0 0 12px;
-      font-size: 16px;
-      letter-spacing: 0.7px;
-      text-transform: uppercase;
-      color: var(--accent);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .section h2 .dot{
-      width: 10px; height: 10px;
-      border-radius: 999px;
+      margin: -22px -24px 16px;
+      padding: 10px 24px;
+      font-family: Fraunces, Georgia, serif;
+      font-weight: 600;
+      font-size: 19px;
+      letter-spacing: 0.2px;
+      color: #fff;
       background: var(--accent);
-      box-shadow: 0 0 0 4px rgba(123,0,0,0.10);
+      border-radius: calc(var(--radius) - 1px) calc(var(--radius) - 1px) 0 0;
     }
 
-    ul{
-      margin: 0;
-      padding-left: 18px;
-    }
-    ul li{ margin-bottom: 10px; }
+    ul{ list-style: none; margin: 0; padding: 0; }
 
-    /* Publication list styling */
-    .pub{
-      list-style: none;
-      padding-left: 0;
-      display: grid;
-      gap: 12px;
+    /* Divided lists: items separated by hairlines instead of boxed */
+    .list > li{
+      padding: 14px 0;
+      border-top: 1px solid var(--line);
     }
-    .pub li{
-      padding: 14px 14px;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: rgba(250,250,252,0.9);
+    .list > li:first-child{ border-top: 0; padding-top: 2px; }
+    .list > li:last-child{ padding-bottom: 0; }
+
+    /* ── News (scrollable) ── */
+    .news-scroll{
+      max-height: 440px;
+      overflow-y: auto;
+      padding-right: 10px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(20,20,26,0.15) transparent;
     }
+    .news-scroll::-webkit-scrollbar{ width: 5px; }
+    .news-scroll::-webkit-scrollbar-thumb{
+      background: rgba(20,20,26,0.15);
+      border-radius: 99px;
+    }
+    .news-item p{ margin: 0; font-size: 15px; }
+    .news-item .date{
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 2px;
+    }
+    .news-img{
+      margin-top: 10px;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .news-img img{
+      width: 100%;
+      max-height: 280px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ── Publications ── */
     .pub .title{
-      margin: 0 0 6px;
-      font-weight: 800;
+      display: block;
+      font-weight: 600;
       color: var(--text);
-      font-size: 15px;
-      line-height: 1.35;
+      line-height: 1.4;
+      margin-bottom: 3px;
     }
-    .pub .title a{
-      border-bottom: none;
-      color: var(--text);
-    }
-    .pub .title a:hover{ color: var(--accent); }
-    .pub .authors{
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
-    }
-    .pub .authors2{
-      margin: 0;
-      color: var;
-      font-size: 14px;
-    }
+    .pub .title:hover{ color: var(--accent); text-decoration: none; }
+    .pub .authors{ margin: 0; font-size: 14px; color: var(--muted); }
+    .pub .authors b{ color: var(--text); font-weight: 600; }
     .pub .venue{
-      margin: 6px 0 0;
-      font-size: 13.5px;
-      color: rgba(20,20,26,0.72);
+      margin: 2px 0 0;
+      font-size: 14px;
+      color: var(--muted);
+      font-style: italic;
     }
     .tag{
       display: inline-block;
-      margin-top: 10px;
-      font-size: 12px;
-      font-weight: 700;
+      margin-right: 6px;
+      font-size: 11.5px;
+      font-weight: 600;
+      font-style: normal;
+      letter-spacing: 0.2px;
       color: var(--accent);
-      background: rgba(123,0,0,0.08);
-      border: 1px solid rgba(123,0,0,0.20);
-      padding: 5px 9px;
-      border-radius: 999px;
+      background: var(--accent-soft);
+      padding: 1px 8px;
+      border-radius: 6px;
+      vertical-align: 1px;
     }
 
-    /* Experience rows */
-    .exp{
-      display: grid;
-      gap: 12px;
-    }
-    .exp .item{
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 14px;
-      background: rgba(250,250,252,0.9);
-    }
-    .exp .role{
+    /* ── Rows (education / experience / awards) ── */
+    .row-item{
       display: flex;
       justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 6px;
+      align-items: center;
+      gap: 14px;
     }
-    .exp .role strong{
-      font-weight: 800;
-    }
-    .exp .role span{
-      color: var(--muted);
-      font-weight: 600;
+    .row-item .what{ font-weight: 600; margin: 0; }
+    .row-item .sub{ margin: 0; font-size: 14px; color: var(--muted); }
+    .row-item .when{
       font-size: 13.5px;
+      color: var(--muted);
+      white-space: nowrap;
+      align-self: flex-start;
+      padding-top: 2px;
     }
+    .row-item .logo{
+      height: 32px;
+      width: auto;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+    .sub-entry{ margin-top: 10px; }
+    .sub-entry + .sub-entry{ margin-top: 8px; }
 
-    /* Footer */
+    /* ── Footer ── */
     .footer{
-      padding: 18px;
+      padding: 0 20px 32px;
       text-align: center;
       color: var(--muted);
       font-size: 13px;
     }
 
-    /* Responsive */
+    /* ── Responsive ── */
     @media (max-width: 920px){
-      .grid{
-        grid-template-columns: 1fr;
-      }
-      .profile{
-        position: static;
-      }
-      .avatar img{
-        aspect-ratio: 16/10;
-      }
+      .grid{ grid-template-columns: 1fr; padding-top: 20px; }
+      .profile{ position: static; }
+      .avatar img{ max-width: 260px; }
     }
-
-    /* Reduced motion */
-    @media (prefers-reduced-motion: reduce){
-      *{ scroll-behavior: auto !important; }
+    @media (max-width: 560px){
+      .row-item{ flex-wrap: wrap; }
+      .row-item .when{ width: 100%; order: 3; padding-top: 0; }
     }
   </style>
 </head>
 
 <body>
-  <div class="page">
-    <header class="hero">
-      <div class="container">
-        <!-- (Intentionally minimal top header; the profile card becomes the hero) -->
+  <main class="grid">
+
+    <!-- Left: profile -->
+    <aside class="card profile" aria-label="Profile">
+      <div class="avatar">
+        <img src="test_2.jpg" alt="Portrait of Saptarshi Ghosh">
       </div>
-    </header>
 
-    <main class="container">
-      <div class="grid">
-        <!-- Left profile column -->
-        <aside class="card profile" aria-label="Profile">
-          <div class="avatar">
-            <img src="test_2.jpg" alt="Portrait of Saptarshi Ghosh">
-          </div>
+      <h1 class="name">Saptarshi Ghosh</h1>
+      <p class="meta">
+        <strong>PhD Student</strong>, Natural Language Processing<br>
+        Department of Computer Science<br>
+        University of Cincinnati
+      </p>
 
-          <h1 class="name">Saptarshi Ghosh</h1>
-          <p class="meta">PhD Student</p>
-          <p class="meta">Natural Language Processing</p>
-          <p class="meta">Department of Computer Science</p>
-          <p class="meta">University of Cincinnati</p>
+      <!-- <div class="pillrow" aria-label="Research areas">
+        <span class="pill">LLMs</span>
+        <span class="pill">Interpretability</span>
+        <span class="pill">Multimodality</span>
+        <span class="pill">Linguistics</span>
+        <span class="pill">Semantics</span>
+        <span class="pill">Figurative Speech</span>
+      </div> -->
 
-          <div class="pillrow" aria-label="Research areas">
-            <span class="pill">LLMs</span>
-            <span class="pill">Interpretability</span>
-            <span class="pill">Multimodality</span>
-            <span class="pill">Linguistics</span>
-            <span class="pill">Semantics</span>
-            <span class="pill">Figurative Speech</span>
-          </div>
+      <div class="contact" aria-label="Contact">
+        <div class="row">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          <a href="mailto:ghosh2si@mail.uc.edu">ghosh2si@mail.uc.edu</a>
+        </div>
+        <div class="row">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10 12 5l9 5-9 5-9-5Z"/><path d="M7 12v4c0 1.5 2.2 3 5 3s5-1.5 5-3v-4"/></svg>
+          <a href="https://www.uc.edu/" target="_blank" rel="noreferrer">University of Cincinnati</a>
+        </div>
+        <div class="row">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6M10 3v6L5 18a2 2 0 0 0 1.8 3h10.4A2 2 0 0 0 19 18l-5-9V3"/></svg>
+          <a href="https://jiangtianyu.com/lab/index.html" target="_blank" rel="noreferrer">CincyNLP Lab</a>
+        </div>
+        <div class="row">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          <a href="https://jiangtianyu.com/" target="_blank" rel="noreferrer">Advisor: Tianyu Jiang</a>
+        </div>
+      </div>
+    </aside>
 
-          <div class="contact" aria-label="Contact">
-            <div class="row">
-              <span class="icon" aria-hidden="true">✉</span>
-              <a href="mailto:ghosh2si@mail.uc.edu">ghosh2si@mail.uc.edu</a>
-            </div>
-            <div class="row">
-              <span class="icon" aria-hidden="true">🔗</span>
-              <a href="https://www.uc.edu/" target="_blank" rel="noreferrer">University of Cincinnati</a>
-            </div>
-            <div class="row">
-              <span class="icon" aria-hidden="true">🧪</span>
-              <a href="https://jiangtianyu.com/lab/index.html" target="_blank" rel="noreferrer">CincyNLP Lab</a>
-            </div>
-            <div class="row">
-              <span class="icon" aria-hidden="true">👤</span>
-              <a href="https://jiangtianyu.com/" target="_blank" rel="noreferrer">Advisor: Tianyu Jiang</a>
-            </div>
-          </div>
-        </aside>
+    <!-- Right: content -->
+    <div class="content">
 
-        <!-- Main content -->
-        <section class="content" aria-label="Main content">
-          <div class="card intro">
-            <p>
-              I am currently a PhD student at the <a href="https://www.uc.edu/" target="_blank" rel="noreferrer">University of Cincinnati</a>,
-              specializing in <b>Natural Language Processing</b>. I work in the
-              <a href="https://jiangtianyu.com/lab/index.html" target="_blank" rel="noreferrer">CincyNLP</a>, advised by Dr.
-              <a href="https://jiangtianyu.com/" target="_blank" rel="noreferrer">Tianyu Jiang</a>.
-              My research focuses on large languagel models, semantics, linguistics, multimodality and interpretability, especially through the lens of <i>figurative speech.</i>
-            </p>
-          </div>
+      <div class="card intro">
+        <p>
+          I am a PhD student at the <a href="https://www.uc.edu/" target="_blank" rel="noreferrer">University of Cincinnati</a>,
+          specializing in <b>Natural Language Processing</b>. I work in the
+          <a href="https://jiangtianyu.com/lab/index.html" target="_blank" rel="noreferrer">CincyNLP Lab</a>, advised by Dr.
+          <a href="https://jiangtianyu.com/" target="_blank" rel="noreferrer">Tianyu Jiang</a>.
+          My research spans LLM evaluation, multilinguality, multimodality, interpretability and explainability,
+          safety, and bias and fairness, with a particular focus on <i>linguistics & figurative language</i>.
+        </p>
+      </div>
 
-          <div class="sections">
+      <!-- News -->
+      <section class="card section" id="news">
+        <h2>Recent News</h2>
+        <div class="news-scroll" role="feed" aria-label="Recent news">
+          <ul class="list">
+            <li class="news-item">
+              <span class="date">September 2026</span>
+              <p><a href="https://en.wikipedia.org/wiki/Fort_Ancient" target="_blank" rel="noreferrer">Fort Ancient</a> can now talk back! 🏛️ It was really fun designing and deploying an AI chatbot for our <a href="https://ming3d.com/new/2026/05/23/re-storying-fort-ancient/" target="_blank" rel="noreferrer">Re-storying Fort Ancient Digital Twin</a> project.</p>
+              <div class="news-img"><img src="fort_ancient.jpg" alt="Fort Ancient chatbot" loading="lazy"></div>
+            </li>
+            <li class="news-item">
+              <span class="date">June 2026</span>
+              <p>Our paper has been accepted to TMLR.</p>
+            </li>
+            <li class="news-item">
+              <span class="date">May 2026</span>
+              <p>CincyNLP team in San Diego for ACL 2026.</p>
+              <div class="news-img"><img src="acl_san_diego.jpeg" alt="CincyNLP team in San Diego for ACL 2026" loading="lazy"></div>
+            </li>
+            <li class="news-item">
+              <span class="date">May 2026</span>
+              <p>I will be serving as a reviewer for NeurIPS 2026.</p>
+            </li>
+            <li class="news-item">
+              <span class="date">May 2026</span>
+              <p>Happy to receive the Best Poster Award at the CS Symposium. 🏆</p>
+              <div class="news-img"><img src="IMG_3303.jpg" alt="Best Poster Award at the CS Symposium" loading="lazy"></div>
+            </li>
+            <li class="news-item">
+              <span class="date">April 2026</span>
+              <p>Three of my papers were accepted to the ACL 2026 Main Conference.</p>
+            </li>
+            <li class="news-item">
+              <span class="date">March 2026</span>
+              <p>Honored to receive the University Research Council (URC 2026) Award.</p>
+            </li>
+            <li class="news-item">
+              <span class="date">February 2026</span>
+              <p>Our paper was accepted to the EACL 2026 Main Conference.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
 
+      <!-- Preprints -->
+      <section class="card section" id="preprints">
+        <h2>Recent Preprints</h2>
+        <ul class="list pub">
+          <li>
+            <a class="title" href="https://arxiv.org/pdf/2611.17811" target="_blank" rel="noreferrer">AI Reviews Are Biased Towards The Appendix</a>
+            <p class="authors"><b>Saptarshi Ghosh</b>, Mohammad Saim, Tianyu Jiang</p>
+            <p class="venue"><span class="tag">arXiv</span>arXiv:2611.17811, 2026</p>
+          </li>
+          <li>
+            <a class="title" href="https://arxiv.org/abs/2605.30443" target="_blank" rel="noreferrer">Cross-Lingual Steering for Figurative Language Generation</a>
+            <p class="authors">Linfeng Liu, Tiffany Zhan, Louie Hong Yao, <b>Saptarshi Ghosh</b>, Tianyu Jiang</p>
+            <p class="venue"><span class="tag">arXiv</span>arXiv:2605.30443, 2026</p>
+          </li>
+        </ul>
+      </section>
 
-          
-            <section class="section" id="news">
-              <h2><span class="dot"></span> Recent News 🚨</h2>
+      <!-- Publications -->
+      <section class="card section" id="publications">
+        <h2>Publications</h2>
+        <ul class="list pub">
+          <li>
+            <a class="title" href="https://openreview.net/pdf?id=VQe6p9wn5g" target="_blank" rel="noreferrer">A Geometric Lens on LLM Abilities through Joint Embedding Item Response Theory</a>
+            <p class="authors">Louie Hong Yao, Nicholas Jarvis, Tiffany Zhan, <b>Saptarshi Ghosh</b>, Tianyu Jiang</p>
+            <p class="venue"><span class="tag">TMLR 2026</span>Transactions on Machine Learning Research</p>
+          </li>
+          <li>
+            <a class="title" href="https://aclanthology.org/2026.acl-long.700/" target="_blank" rel="noreferrer">MetFuse: Figurative Fusion between Metonymy and Metaphor</a>
+            <p class="authors"><b>Saptarshi Ghosh</b>, Tianyu Jiang</p>
+            <p class="venue"><span class="tag">ACL 2026</span>Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics</p>
+          </li>
+          <li>
+            <a class="title" href="https://aclanthology.org/2026.acl-long.705/" target="_blank" rel="noreferrer">Exploring Concreteness Through a Figurative Lens</a>
+            <p class="authors"><b>Saptarshi Ghosh</b>, Tianyu Jiang</p>
+            <p class="venue"><span class="tag">ACL 2026</span>Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics</p>
+          </li>
+          <li>
+            <a class="title" href="https://aclanthology.org/2026.acl-long.698/" target="_blank" rel="noreferrer">Evaluating the Impact of Verbal Multiword Expressions on Machine Translation</a>
+            <p class="authors">Linfeng Liu, <b>Saptarshi Ghosh</b>, Tianyu Jiang</p>
+            <p class="venue"><span class="tag">ACL 2026</span>Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics</p>
+          </li>
+          <li>
+            <a class="title" href="https://aclanthology.org/2026.eacl-long.92/" target="_blank" rel="noreferrer">A Computational Approach to Visual Metonymy</a>
+            <p class="authors"><b>Saptarshi Ghosh</b>, Linfeng Liu, Tianyu Jiang</p>
+            <p class="venue"><span class="tag">EACL 2026</span>Proceedings of the 19th Conference of the European Chapter of the Association for Computational Linguistics</p>
+          </li>
+          <li>
+            <a class="title" href="https://aclanthology.org/2025.naacl-long.330/" target="_blank" rel="noreferrer">ConMeC: A Dataset for Metonymy Resolution with Common Nouns</a>
+            <p class="authors"><b>Saptarshi Ghosh</b>, Tianyu Jiang</p>
+            <p class="venue"><span class="tag">NAACL 2025</span>Proceedings of the 2025 Annual Conference of the Nations of the Americas Chapter of the Association for Computational Linguistics</p>
+          </li>
+          <li>
+            <a class="title" href="https://tinyurl.com/252dun4c" target="_blank" rel="noreferrer">Common Noun Metonymy Resolution Using Large Language Models</a>
+            <p class="authors"><b>Saptarshi Ghosh</b></p>
+            <p class="venue"><span class="tag">MS Thesis</span>University of Cincinnati, 2025</p>
+          </li>
+        </ul>
+      </section>
 
-              <div class="news-scroll" role="feed" aria-label="Recent news">
-
-                <!-- ★ NEW item with image placeholder -->
-
-                  <div class="news-item">
-                  <p><b>September 2026</b> — <a href="https://en.wikipedia.org/wiki/Fort_Ancient" target="_blank" rel="noreferrer">Fort Ancient</a> can now talk back! 🏛️🤖 It was really fun designing and deploying an AI chatbot for our <a href="https://ming3d.com/new/2026/05/23/re-storying-fort-ancient/" target="_blank" rel="noreferrer">Re-storying Fort Ancient Digital Twin</a> project.</p>
-                  <div class="news-img">
-                    <img src="fort_ancient.jpg" alt="Fort Ancient can now talk back!">
-                  </div>
-                </div>
-
-                <div class="news-item">
-                  <p><b>May 2026</b> — CincyNLP Team in San Diego for ACL 2026. 💪</p>
-                  <div class="news-img">
-                    <img src="acl_san_diego.jpeg" alt="CincyNLP Team in San Diego for ACL 2026">
-                  </div>
-                </div>
-
-                <div class="news-item">
-                  <p><b>June 2026</b> — Our paper has been accepted to TMLR. ⭐</p>
-                </div>
-
-                <div class="news-item">
-                  <p><b>May 2026</b> — I will be serving as a reviewer for NeuRIPS 2026. 📝</p>
-                </div>
-
-
-                <div class="news-item">
-                  <p><b>May 2026</b> — Happy to receive the Best Poster Award in the CS Symposium. 🏆</p>
-                  <div class="news-img">
-                    <img src="IMG_3303.jpg" alt="Happy to receive the Best Poster Award in the CS Symposium">
-                  </div>
-                </div>
-              
-
-                <div class="news-item">
-                  <p><b>April 2026</b> — Three of my papers got accepted to ACL 2026 Main Conference. ⭐⭐⭐</p>
-                </div>
-
-                <div class="news-item">
-                  <p><b>March 2026</b> — Honored to receive the University Research Council (URC 2026) Award. 🏆</p>
-                </div>
-
-                <div class="news-item">
-                  <p><b>February 2026</b> — Our paper got accepted to EACL 2026 Main Conference. ⭐</p>
-                </div>
-
-              </div><!-- /.news-scroll -->
-            </section>
-
-
-
-
-            <section class="section" id="education">
-              <h2><span class="dot"></span> Education 🎓</h2>
-
-              <ul class="pub">
-
-                <li style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
-                  <div>
-                    <p class="title">PhD in Computer Science</p>
-                    <p class="authors">University of Cincinnati · 2025 - Present</p>
-                  </div>
-                  <img src="uc_logo.png" alt="University of Cincinnati" style="height:38px; width:auto; object-fit:contain; flex-shrink:0;">
-                </li>
-
-                <li style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
-                  <div>
-                    <p class="title">MS in Computer Science</p>
-                    <p class="authors">University of Cincinnati · 2023 - 2025</p>
-                  </div>
-                  <img src="uc_logo.png" alt="University of Cincinnati" style="height:38px; width:auto; object-fit:contain; flex-shrink:0;">
-                </li>
-
-                <li style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
-                  <div>
-                    <p class="title">MS in Applied Mathematics</p>
-                    <p class="authors">Maulana Abul Kalam Azad University of Technology · 2020 - 2022</p>
-                  </div>
-                  <img src="makaut_logo.png" alt="MAKAUT" style="height:38px; width:auto; object-fit:contain; flex-shrink:0;">
-                </li>
-
-                <li style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
-                  <div>
-                    <p class="title">BS in Physics</p>
-                    <p class="authors">University of Calcutta · 2016 - 2019</p>
-                  </div>
-                  <img src="cu_logo.png" alt="CU" style="height:38px; width:auto; object-fit:contain; flex-shrink:0;">
-                </li>
-
-
-              </ul>
-            </section>
-
-            <section class="section" id="publications">
-              <h2><span class="dot"></span> Publications 📄</h2>
-              <ul class="pub">
-
-                <li>
-                  <p class="title">
-                    <a href="https://openreview.net/pdf?id=VQe6p9wn5g" target="_blank" rel="noreferrer">
-                      A Geometric Lens on LLM Abilities through Joint Embedding Item Response Theory
-                    </a>
-                  </p>
-                  <p class="authors2">Louie Hong Yao, Nicholas Jarvis, Tiffany Zhan, <b>Saptarshi Ghosh</b>, Tianyu Jiang</p>
-                  <p class="venue">In Proceedings of the Transaction of Machine Learning Research (TMLR 2026)</p>
-                  <span class="tag">TMLR 2026</span>
-                </li>
-
-                <li>
-                  <p class="title">
-                    <a href="https://aclanthology.org/2026.acl-long.700/" target="_blank" rel="noreferrer">
-                      MetFuse: Figurative Fusion between Metonymy and Metaphor
-                    </a>
-                  </p>
-                  <p class="authors2"><b>Saptarshi Ghosh</b>, Tianyu Jiang</p>
-                  <p class="venue">In Proceedings of the The 64th Annual Meeting of the Association for Computational Linguistics (ACL 2026).</p>
-                  <span class="tag">ACL 2026</span> <span class="tag">Main Conference</span>
-                </li>                
-
-
-                <li>
-                  <p class="title">
-                    <a href="https://aclanthology.org/2026.acl-long.705/" target="_blank" rel="noreferrer">
-                      Exploring Concreteness Through a Figurative Lens
-                    </a>
-                  </p>
-                  <p class="authors2"><b>Saptarshi Ghosh</b>, Tianyu Jiang</p>
-                  <p class="venue">In Proceedings of the The 64th Annual Meeting of the Association for Computational Linguistics (ACL 2026).</p>
-                  <span class="tag">ACL 2026</span> <span class="tag">Main Conference</span> 
-                </li>
-
-                <li>
-                  <p class="title">
-                    <a href="https://aclanthology.org/2026.acl-long.698/" target="_blank" rel="noreferrer">
-                      Evaluating the Impact of Verbal Multiword Expressions on Machine Translation
-                    </a>
-                  </p>
-                  <p class="authors2">Linfeng Liu, <b>Saptarshi Ghosh</b>, Tianyu Jiang</p>
-                  <p class="venue">In Proceedings of the The 64th Annual Meeting of the Association for Computational Linguistics (ACL 2026).</p>
-                  <span class="tag">ACL 2026</span> <span class="tag">Main Conference</span> 
-                </li>
-
-
-                <li>
-                  <p class="title">
-                    <a href="https://aclanthology.org/2026.eacl-long.92/" target="_blank" rel="noreferrer">
-                      A Computational Approach to Visual Metonymy
-                    </a>
-                  </p>
-                  <p class="authors2"><b>Saptarshi Ghosh</b>, Linfeng Liu, Tianyu Jiang</p>
-                  <p class="venue">In Proceedings of the 19th Conference of the European Chapter of the Association for Computational Linguistics (EACL 2026).</p>
-                  <span class="tag">EACL 2026</span> <span class="tag">Main Conference</span> 
-                </li>
-
-                <li>
-                  <p class="title">
-                    <a href="https://aclanthology.org/2025.naacl-long.330/" target="_blank" rel="noreferrer">
-                      ConMeC: A Dataset for Metonymy Resolution with Common Nouns
-                    </a>
-                  </p>
-                  <p class="authors2"><b>Saptarshi Ghosh</b>, Tianyu Jiang</p>
-                  <p class="venue">In Proceedings of the 2025 Annual Conference of the Nations of the Americas Chapter of the Association for Computational Linguistics (NAACL 2025).</p>
-                  <span class="tag">NAACL 2025</span> <span class="tag">Main Conference</span>
-                </li>
-
-                <li>
-                  <p class="title">
-                    <a href="https://tinyurl.com/252dun4c" target="_blank" rel="noreferrer">
-                      Common Noun Metonymy Resolution Using Large Language Models
-                    </a>
-                  </p>
-                  <p class="authors2"><b>Saptarshi Ghosh</b></p>
-                  <p class="venue">MS Thesis, University of Cincinnati, 2025</p>
-                  <span class="tag">MS Thesis</span>
-                </li>
-              </ul>
-            </section>
-
-            <section class="section" id="preprints">
-              <h2><span class="dot"></span> Preprints</h2>
-              <ul class="pub">
-
-
-
-
-                <li>
-                  <p class="title">
-                    <a href="https://arxiv.org/abs/2605.30443" target="_blank" rel="noreferrer">
-                      Cross-Lingual Steering for Figurative Language Generation
-                    </a>
-                  </p>
-                  <p class="authors2">Linfeng Liu, Tiffany Zhan, Louie Hong Yao, <b>Saptarshi Ghosh</b>, Tianyu Jiang</p>
-                  <p class="venue">arXiv:2605.30443 (2026)</p>
-                  <span class="tag">arXiv</span>
-                </li>
-              </ul>
-
-              
-            </section>
-
-            <section class="section" id="experience">
-              <h2><span class="dot"></span> Experience 🥼</h2>
-              <div class="exp">
-
-                <div class="item">
-                  <div class="role">
-                    <strong>Research Assistant · University of Cincinnati</strong>
-                  </div>
-
-                  <div style="margin-top:12px;">
-                    <div style="display:flex; justify-content:space-between; align-items:baseline; gap:10px; flex-wrap:wrap;">
-                      <span style="font-weight:600;">Topic – <a href="https://ming3d.com/new/2026/05/23/re-storying-fort-ancient/">Re-storying Fort Ancient</a></span>
-                      <span style="color:var(--muted); font-size:13.5px; font-weight:600;">Summer 2026 – Present</span>
-                    </div>
-                    <p style="margin:3px 0 0; color:var(--muted); font-size:14px;">
-                      <a href="https://ming3d.com/VR/">eXtended Reality (XR) Lab</a>,
-                      College of Design Architecture, Art, and Planning (DAAP)
-                    </p>
-                  </div>
-
-                  <div style="margin-top:12px; padding-top:12px; border-top:1px solid var(--line);">
-                    <div style="display:flex; justify-content:space-between; align-items:baseline; gap:10px; flex-wrap:wrap;">
-                      <span style="font-weight:600;">Topic – Cost Efficient Deployment of LLMs</span>
-                      <span style="color:var(--muted); font-size:13.5px; font-weight:600;">Summer 2025 – Spring 2026</span>
-                    </div>
-                    <p style="margin:3px 0 0; color:var(--muted); font-size:14px;">
-                      <a href="https://www.ceas.uc.edu/research/centers-labs/industry-institute.html">Industry 4.0/5.0 Institute</a>
-                    </p>
-                  </div>
-                </div>
-
-                <div class="item">
-                  <div class="role">
-                    <strong>Teaching Assistant · University of Cincinnati</strong>
-                    <span>Fall 2024 – Spring 2025</span>
-                  </div>
-                  <p style="margin:0;color:var(--muted);font-size:14px;">
-                    CS 5034/6034: Natural Language Processing (Fall 2024)<br>
-                    CS 4033/6033: Artificial Intelligence (Fall 2024, Spring 2025)<br>
-                    CS 4071: Design and Analysis of Algorithms (Spring 2025)
-                  </p>
-                </div>
-
+      <!-- Experience -->
+      <section class="card section" id="experience">
+        <h2>Experience</h2>
+        <ul class="list">
+          <li>
+            <p class="row-item"><span class="what">Research Assistant · University of Cincinnati</span></p>
+            <div class="row-item sub-entry">
+              <div>
+                <p class="sub" style="color:var(--text)">Re-storying <a href="https://ming3d.com/new/2026/05/23/re-storying-fort-ancient/" target="_blank" rel="noreferrer">Fort Ancient</a></p>
+                <p class="sub"><a href="https://ming3d.com/VR/" target="_blank" rel="noreferrer">eXtended Reality (XR) Lab</a>, College of DAAP</p>
               </div>
-            </section>
-
-
-              
-
-            <section class="section" id="experience">
-              <h2><span class="dot"></span> Awards 🏆</h2>
-              <div class="exp">
-
-                <div class="item">
-                  <div class="role">
-                    <strong>Best Research Poster Award</strong>
-                  </div>
-                  <p style="margin:0;color:var(--muted);font-size:14px;">
-                    CS Symposium, University of Cincinnati, Department of Computer Science<br>
-                    April 2026
-                    
-                  </p>
-                </div>
-
-                <div class="item">
-                  <div class="role">
-                    <strong>University Research Council (URC) 2026 Award</strong>
-                  </div>
-                  <p style="margin:0;color:var(--muted);font-size:14px;">
-                    University of Cincinnati, Department of Research<br>
-                    March 2026
-                    
-                  </p>
-                </div>
-
-                <div class="item">
-                  <div class="role">
-                    <strong>Best Student Award</strong>
-                  </div>
-                  <p style="margin:0;color:var(--muted);font-size:14px;">
-                    University of Cincinnati, Department of Computer Science <br>
-                    April 2025
-                  </p>
-                </div>
-
-                <div class="item">
-                  <div class="role">
-                    <strong>Best Teaching Assistant Award</strong>
-                  </div>
-                  <p style="margin:0;color:var(--muted);font-size:14px;">
-                    University of Cincinnati, Department of Computer Science <br>
-                    April 2025
-                  </p>
-                </div>
-                
+              <span class="when">Summer 2026 – Present</span>
+            </div>
+            <div class="row-item sub-entry">
+              <div>
+                <p class="sub" style="color:var(--text)">Cost-efficient deployment of LLMs</p>
+                <p class="sub"><a href="https://www.ceas.uc.edu/research/centers-labs/industry-institute.html" target="_blank" rel="noreferrer">Industry 4.0/5.0 Institute</a></p>
               </div>
-            </section>
+              <span class="when">Summer 2025 – Spring 2026</span>
+            </div>
+          </li>
+          <li>
+            <div class="row-item">
+              <div>
+                <p class="what">Teaching Assistant · University of Cincinnati</p>
+                <p class="sub">
+                  CS 5034/6034: Natural Language Processing (Fall 2024)<br>
+                  CS 4033/6033: Artificial Intelligence (Fall 2024, Spring 2025)<br>
+                  CS 4071: Design and Analysis of Algorithms (Spring 2025)
+                </p>
+              </div>
+              <span class="when">Fall 2024 – Spring 2025</span>
+            </div>
+          </li>
+        </ul>
+      </section>
 
-          </div>
-        </section>
-      </div>
+      <!-- Education -->
+      <section class="card section" id="education">
+        <h2>Education</h2>
+        <ul class="list">
+          <li class="row-item">
+            <div><p class="what">PhD in Computer Science</p><p class="sub">University of Cincinnati · 2025 – Present</p></div>
+            <img class="logo" src="uc_logo.png" alt="University of Cincinnati">
+          </li>
+          <li class="row-item">
+            <div><p class="what">MS in Computer Science</p><p class="sub">University of Cincinnati · 2023 – 2025</p></div>
+            <img class="logo" src="uc_logo.png" alt="University of Cincinnati">
+          </li>
+          <li class="row-item">
+            <div><p class="what">MS in Applied Mathematics</p><p class="sub">Maulana Abul Kalam Azad University of Technology · 2020 – 2022</p></div>
+            <img class="logo" src="makaut_logo.png" alt="MAKAUT">
+          </li>
+          <li class="row-item">
+            <div><p class="what">BS in Physics</p><p class="sub">University of Calcutta · 2016 – 2019</p></div>
+            <img class="logo" src="cu_logo.png" alt="University of Calcutta">
+          </li>
+        </ul>
+      </section>
 
-      <div class="footer">
-        © <span id="year"></span> Saptarshi Ghosh · Built with simple HTML/CSS
-      </div>
-    </main>
-  </div>
+      <!-- Awards -->
+      <section class="card section" id="awards">
+        <h2>Awards</h2>
+        <ul class="list">
+          <li class="row-item">
+            <div><p class="what">Best Research Poster Award</p><p class="sub">CS Symposium, Department of Computer Science, UC</p></div>
+            <span class="when">April 2026</span>
+          </li>
+          <li class="row-item">
+            <div><p class="what">University Research Council (URC) 2026 Award</p><p class="sub">University of Cincinnati, Office of Research</p></div>
+            <span class="when">March 2026</span>
+          </li>
+          <li class="row-item">
+            <div><p class="what">Best Student Award</p><p class="sub">Department of Computer Science, UC</p></div>
+            <span class="when">April 2025</span>
+          </li>
+          <li class="row-item">
+            <div><p class="what">Best Teaching Assistant Award</p><p class="sub">Department of Computer Science, UC</p></div>
+            <span class="when">April 2025</span>
+          </li>
+        </ul>
+      </section>
+
+    </div>
+  </main>
+
+  <div class="footer">© <span id="year"></span> Saptarshi Ghosh</div>
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
